@@ -154,13 +154,14 @@ func GetCardsPage(page int, pageSize int, textFilter string) (*AllCards, int, er
 
 // CardFilters contient les paramètres de filtre pour la recherche de cartes.
 type CardFilters struct {
-	ManaCost string // valeur ou vide
-	Attack   string
-	Health   string
-	Rarity   string // slug API : free, common, rare, epic, legendary ou vide
+	ManaCost   string // valeur ou vide
+	Attack     string
+	Health     string
+	Rarity     string // slug API : free, common, rare, epic, legendary ou vide
+	TextFilter string // filtre texte (nom / texte de carte)
 }
 
-// GetCardsPageWithFilters récupère une page de cartes avec filtres ManaCost, Attack, Health, Rarity.
+// GetCardsPageWithFilters récupère une page de cartes avec filtres ManaCost, Attack, Health, Rarity et texte.
 func GetCardsPageWithFilters(page int, pageSize int, filters CardFilters) (*AllCards, int, error) {
 	_client := http.Client{
 		Timeout: 20 * time.Second,
@@ -183,6 +184,9 @@ func GetCardsPageWithFilters(page int, pageSize int, filters CardFilters) (*AllC
 	}
 	if filters.Rarity != "" {
 		params.Set("rarity", filters.Rarity)
+	}
+	if filters.TextFilter != "" {
+		params.Set("textFilter", filters.TextFilter)
 	}
 
 	fullURL := fmt.Sprintf("%s?%s", baseURL, params.Encode())

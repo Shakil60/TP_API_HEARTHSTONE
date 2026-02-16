@@ -25,5 +25,23 @@
     "rarity": 1,
     "name": "Abyssal suprême",
     "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/bf8c22346a5de7cbf4580598342ad6f34fef1600d8c9e1ab08f421c581bf57d4.png"
+  },
+  {
+    "id": 79745,
+    "manaCost": 1,
+    "attack": 0,
+    "health": 0,
+    "rarity": 3,
+    "name": "Accusation de vol",
+    "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/74f55513e76c6eb140f3fe3c87996463d59d88e45fb8c5ad2088c3b87f9cbc6c.png"
+  },
+  {
+    "id": 47625,
+    "manaCost": 4,
+    "attack": 0,
+    "health": 0,
+    "rarity": 4,
+    "name": "AVIS DE RECHERCHE",
+    "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/75df039db6ca2d80a5eeeb147e92ce7aa397aeeac7588eff112699c749e68fcf.png"
   }
 ]

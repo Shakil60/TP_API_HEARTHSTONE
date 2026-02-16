@@ -23,6 +23,7 @@ type CardsFilterPageData struct {
 	Attack      string
 	Health      string
 	Rarity      string
+	SearchTerm  string
 }
 
 // ListCardsFilterDisplay affiche la liste des cartes avec filtres ManaCost, Attack, Health, Rarity.
@@ -41,12 +42,14 @@ func ListCardsFilterDisplay(w http.ResponseWriter, r *http.Request) {
 	attack := strings.TrimSpace(r.URL.Query().Get("attack"))
 	health := strings.TrimSpace(r.URL.Query().Get("health"))
 	rarity := strings.TrimSpace(r.URL.Query().Get("rarity"))
+	searchTerm := strings.TrimSpace(r.URL.Query().Get("textFilter"))
 
 	filters := services.CardFilters{
-		ManaCost: manaCost,
-		Attack:   attack,
-		Health:   health,
-		Rarity:   rarity,
+		ManaCost:   manaCost,
+		Attack:     attack,
+		Health:     health,
+		Rarity:     rarity,
+		TextFilter: searchTerm,
 	}
 
 	data, statusCode, err := services.GetCardsPageWithFilters(page, pageSize, filters)
@@ -76,6 +79,9 @@ func ListCardsFilterDisplay(w http.ResponseWriter, r *http.Request) {
 		if rarity != "" {
 			q.Set("rarity", rarity)
 		}
+		if searchTerm != "" {
+			q.Set("textFilter", searchTerm)
+		}
 		return "/cards/filter?" + q.Encode()
 	}
 
@@ -91,6 +97,7 @@ func ListCardsFilterDisplay(w http.ResponseWriter, r *http.Request) {
 		Attack:      attack,
 		Health:      health,
 		Rarity:      rarity,
+		SearchTerm:  searchTerm,
 	}
 
 	// Cas page vide (aucune carte)
