@@ -1,0 +1,39 @@
+{{define "deck"}}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Hearthstone</title>
+</head>
+
+<body>
+    <h1>Deck Hearthstone</h1>
+    <section>
+        <h2>Informations générales</h2>
+        <p><strong>Format :</strong> {{.Deck.Format}}</p>
+    </section>
+
+    <section>
+        <h2>Cartes du deck</h2>
+        {{if .Deck.Cards}}
+        <ul>
+            {{range .Deck.Cards}}
+            <li>
+                <h3>{{.Name.FR}}</h3>
+                <p><strong>Coût en mana :</strong> {{.ManaCost}}</p>
+                <p><strong>ID :</strong> {{.ID}}</p>
+                <img src="{{.Image.FR}}" alt="Image de la carte {{.Name.FR}}">
+            </li>
+            {{end}}
+        </ul>
+        {{else}}
+        <p>Aucune carte trouvée pour ce deck.</p>
+        {{end}}
+    </section>
+</body>
+
+</html>
+{{end}}
+

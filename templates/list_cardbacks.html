@@ -1,0 +1,35 @@
+{{define "list_cardbacks"}}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Dos de Cartes d'Hearthstone</title>
+</head>
+
+<body>
+    <h1>Liste des Dos de Cartes d'Hearthstone</h1>
+    <ul>
+        {{range .CardBacks}}
+        <li>
+            <h3>{{.Name.FR}}</h3>
+            <p><strong>ID :</strong> {{.ID}}</p>
+            <img src="{{.Image}}" alt="Image du dos de carte {{.Name.FR}}">
+        </li>
+        {{end}}
+    </ul>
+    <div>
+        <p>Page {{.CurrentPage}} / {{.TotalPages}}</p>
+        {{if .HasPrev}}
+        <a href="/cardbacks?page={{.PrevPage}}">Page précédente</a>
+        {{end}}
+        {{if .HasNext}}
+        <a href="/cardbacks?page={{.NextPage}}">Page suivante</a>
+        {{end}}
+    </div>
+</body>
+
+</html>
+{{end}}
+

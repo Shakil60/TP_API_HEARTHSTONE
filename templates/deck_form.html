@@ -1,0 +1,23 @@
+{{define "deck_form"}}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de Deck Hearthstone</title>
+</head>
+
+<body>
+    <h1>Afficher un deck Hearthstone</h1>
+    <form action="/deck" method="get">
+        <label for="code">Code du deck :</label>
+        <input type="text" id="code" name="code" value="{{.DefaultCode}}" required style="width: 400px;">
+        <button type="submit">Afficher le deck</button>
+    </form>
+</body>
+
+</html>
+{{end}}
+
+
