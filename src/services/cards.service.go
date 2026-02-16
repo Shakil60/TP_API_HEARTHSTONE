@@ -10,9 +10,6 @@ import (
 	"time"
 )
 
-// Token est le token d'authentification pour l'API Blizzard
-var Token string = "EUphcku68aRHkfRoGFd1GE3i35EbCZDIbf"
-
 type LocalizedString struct {
 	DE string `json:"de_DE"`
 	US string `json:"en_US"`
@@ -150,6 +147,68 @@ func GetCardsPage(page int, pageSize int, textFilter string) (*AllCards, int, er
 	decodeErr := json.NewDecoder(res.Body).Decode(&data)
 	if decodeErr != nil {
 		return nil, http.StatusInternalServerError, fmt.Errorf("GetCardsPage - Erreur lors du décodage des données : %s", decodeErr.Error())
+	}
+
+	return &data, http.StatusOK, nil
+}
+
+// CardFilters contient les paramètres de filtre pour la recherche de cartes.
+type CardFilters struct {
+	ManaCost string // valeur ou vide
+	Attack   string
+	Health   string
+	Rarity   string // slug API : free, common, rare, epic, legendary ou vide
+}
+
+// GetCardsPageWithFilters récupère une page de cartes avec filtres ManaCost, Attack, Health, Rarity.
+func GetCardsPageWithFilters(page int, pageSize int, filters CardFilters) (*AllCards, int, error) {
+	_client := http.Client{
+		Timeout: 20 * time.Second,
+	}
+
+	baseURL := "https://eu.api.blizzard.com/hearthstone/cards"
+
+	params := url.Values{}
+	params.Set("page", strconv.Itoa(page))
+	params.Set("pageSize", strconv.Itoa(pageSize))
+	params.Set("locale", "fr_FR")
+	if filters.ManaCost != "" {
+		params.Set("manaCost", filters.ManaCost)
+	}
+	if filters.Attack != "" {
+		params.Set("attack", filters.Attack)
+	}
+	if filters.Health != "" {
+		params.Set("health", filters.Health)
+	}
+	if filters.Rarity != "" {
+		params.Set("rarity", filters.Rarity)
+	}
+
+	fullURL := fmt.Sprintf("%s?%s", baseURL, params.Encode())
+
+	req, reqErr := http.NewRequest(http.MethodGet, fullURL, nil)
+	if reqErr != nil {
+		return nil, http.StatusInternalServerError, fmt.Errorf("GetCardsPageWithFilters - Erreur lors de la préparation de la requête : %s", reqErr)
+	}
+
+	req.Header.Set("Authorization", "Bearer "+Token)
+
+	res, resErr := _client.Do(req)
+	if resErr != nil {
+		return nil, http.StatusInternalServerError, fmt.Errorf("GetCardsPageWithFilters - Erreur lors de l'envoi de la requête : %s", resErr)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		errorBody, _ := io.ReadAll(res.Body)
+		return nil, res.StatusCode, fmt.Errorf("GetCardsPageWithFilters - Erreur code : %d, body : %s", res.StatusCode, string(errorBody))
+	}
+
+	var data AllCards
+	decodeErr := json.NewDecoder(res.Body).Decode(&data)
+	if decodeErr != nil {
+		return nil, http.StatusInternalServerError, fmt.Errorf("GetCardsPageWithFilters - Erreur décodage : %s", decodeErr.Error())
 	}
 
 	return &data, http.StatusOK, nil
