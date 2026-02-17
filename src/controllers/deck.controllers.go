@@ -48,6 +48,5 @@ func DeckDisplay(w http.ResponseWriter, r *http.Request) {
 		Deck:     deck,
 	}
 
-	// À adapter au nom réel de votre template (par ex. "deck" ou "deck_details")
 	helper.RenderTemplate(w, r, "deck", pageData)
 }

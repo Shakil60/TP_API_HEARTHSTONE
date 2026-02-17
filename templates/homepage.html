@@ -1,26 +1,33 @@
 {{define "homepage"}}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Hearthstone API</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+
+<body class="homepage-body">
+    <div class="top-header">
+        <img src="/static/img/Hearthstone-Logo.png" alt="Hearthstone Logo" class="game-logo">
+        <img src="/static/img/Hearthstone_Name.png" alt="Hearthstone Name" class="game-name">
+    </div>
+
     <div class="container">
-        <h1>Page d'Accueil</h1>
-        
+
         <div class="nav-links">
-            <a href="/cards" class="nav-link cards">Liste des Cartes</a>
+            <a href="/cards" class="nav-link cards">Catalogue des Cartes</a>
             <br>
-            <a href="/favorites" class="nav-link favorites">Mes cartes favorites</a>
-            <br>
-            <a href="/cardbacks" class="nav-link cardbacks">Liste des Dos de Cartes</a>
+            <a href="/cardbacks" class="nav-link cardbacks">Catalogue des Dos de Cartes</a>
             <br>
             <a href="/deck/code" class="nav-link deck">Deck à partir d'un code</a>
+            <br>/
+            <a href="/favorites" class="nav-link favorites">Mes cartes favorites</a>
         </div>
     </div>
 </body>
+
 </html>
 {{end}}

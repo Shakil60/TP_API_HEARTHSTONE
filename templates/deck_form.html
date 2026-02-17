@@ -10,15 +10,31 @@
 </head>
 
 <body>
-    <h1>Afficher un deck Hearthstone</h1>
-    <form action="/deck" method="get">
-        <label for="code">Code du deck :</label>
-        <input type="text" id="code" name="code" value="{{.DefaultCode}}" required style="width: 400px;">
-        <button type="submit">Afficher le deck</button>
-    </form>
+    <header class="site-header">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item nav-logo"><a href="/"><img src="/static/img/Hearthstone-Logo.png" alt="Accueil"></a>
+                </li>
+                <li class="nav-item"><a href="/cards">Cartes</a></li>
+                <li class="nav-item"><a href="/cardbacks">Dos de Cartes</a></li>
+                <li class="nav-item"><a href="/deck/code">Deck Builder</a></li>
+                <li class="nav-item"><a href="/favorites">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="deck-form-container">
+        <h1 class="deck-form-title">Afficher un deck Hearthstone à partir d'un code</h1>
+        <form action="/deck" method="get" class="deck-form">
+            <div class="deck-input-group">
+                <label for="code" class="deck-label">Code du
+                    deck :</label>
+                <input type="text" id="code" name="code" value="{{.DefaultCode}}" required class="deck-input">
+            </div>
+            <button type="submit" class="btn-deck-submit">Afficher
+                le deck</button>
+        </form>
+    </div>
 </body>
 
 </html>
 {{end}}
-
-

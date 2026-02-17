@@ -17,9 +17,9 @@ type CardBacksPageData struct {
 	NextPage    int
 }
 
-// ListCardsbacksDisplay est un contrôleur permettant de récupérer la liste des dos de cartes.
+// ListCardsbacksDisplay est un contrôleur permettant d'afficher la liste des dos de cartes.
 func ListCardsbacksDisplay(w http.ResponseWriter, r *http.Request) {
-	const pageSize = 20
+	const pageSize = 28
 	pageParam := r.URL.Query().Get("page")
 	page := 1
 	if pageParam != "" {

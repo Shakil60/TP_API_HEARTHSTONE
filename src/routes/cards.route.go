@@ -6,17 +6,17 @@ import (
 )
 
 // La fonction routerListCards permet de déclarer l’ensemble des routes liées aux fonctionnalités Cartes.
-// Elle reçoit en paramètre un pointeur vers un http.ServeMux afin d’enregistrer les routes directement sur le routeur principal
 func routerListCards(router *http.ServeMux) {
 	// Déclaration de la route racine "/"
 	router.HandleFunc("/", controllers.HomeDisplay)
 
-	// Route pour la page de liste des cartes (avec filtres)
-	router.HandleFunc("/cards", controllers.ListCardsDisplay)
-	
 	// Route pour la page détail d'une carte
 	router.HandleFunc("/card", controllers.CardDetailDisplay)
 
+	// Route pour la page de liste des cartes (avec filtres)
+	router.HandleFunc("/cards", controllers.ListCardsDisplay)
+	
+	// Route pour la page de liste des dos de cartes
 	router.HandleFunc("/cardbacks", controllers.ListCardsbacksDisplay)
 
 	// Favoris : page liste et ajout
@@ -27,5 +27,6 @@ func routerListCards(router *http.ServeMux) {
 	// Route pour la page de saisie du code de deck
 	router.HandleFunc("/deck/code", controllers.DeckFormDisplay)
 
+	// Route pour la page d'affichage de la liste des cartes du deck
 	router.HandleFunc("/deck", controllers.DeckDisplay)
 }

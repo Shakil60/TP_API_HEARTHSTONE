@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// ListFavoritesDisplay affiche la page des cartes favoris.
+// ListFavoritesDisplay affiche la page des cartes en favoris.
 func ListFavoritesDisplay(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Méthode non autorisée", http.StatusMethodNotAllowed)

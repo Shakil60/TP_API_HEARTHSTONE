@@ -110,6 +110,5 @@ func RemoveFavorite(id int) error {
 		}
 	}
 
-	// Même si rien ne change, on ré-enregistre pour être explicite.
 	return SaveFavorites(newList)
 }

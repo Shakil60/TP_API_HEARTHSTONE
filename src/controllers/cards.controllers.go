@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// CardsFilterPageData contient les données pour la page liste des cartes avec filtres.
+// CardsFilterPageData contient les données de la page qui liste les cartes.
 type CardsFilterPageData struct {
 	Cards       []services.Card
 	CurrentPage int
@@ -28,7 +28,7 @@ type CardsFilterPageData struct {
 
 // ListCardsDisplay affiche la liste des cartes avec filtres (ManaCost, Attack, Health, Rarity) + recherche texte.
 func ListCardsDisplay(w http.ResponseWriter, r *http.Request) {
-	const pageSize = 20
+	const pageSize = 28
 
 	pageParam := r.URL.Query().Get("page")
 	page := 1

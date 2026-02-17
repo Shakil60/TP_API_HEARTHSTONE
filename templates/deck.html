@@ -10,31 +10,34 @@
 </head>
 
 <body>
+    <header class="site-header">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item nav-logo"><a href="/"><img src="/static/img/Hearthstone-Logo.png" alt="Accueil"></a>
+                </li>
+                <li class="nav-item"><a href="/cards">Cartes</a></li>
+                <li class="nav-item"><a href="/cardbacks">Dos de Cartes</a></li>
+                <li class="nav-item"><a href="/deck/code">Deck Builder</a></li>
+                <li class="nav-item"><a href="/favorites">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
     <h1>Deck Hearthstone</h1>
+    <p class="deck-format"><strong>Format :</strong> {{.Deck.Format}}</p>
+    {{if .Deck.Cards}}
     <section>
-        <h2>Informations générales</h2>
-        <p><strong>Format :</strong> {{.Deck.Format}}</p>
-    </section>
-
-    <section>
-        <h2>Cartes du deck</h2>
-        {{if .Deck.Cards}}
-        <ul>
+        <div class="cards-container">
             {{range .Deck.Cards}}
-            <li>
-                <h3>{{.Name.FR}}</h3>
-                <p><strong>Coût en mana :</strong> {{.ManaCost}}</p>
-                <p><strong>ID :</strong> {{.ID}}</p>
-                <img src="{{.Image.FR}}" alt="Image de la carte {{.Name.FR}}">
-            </li>
+            <div class="card">
+                <a href="/card?id={{.ID}}"><img src="{{.Image.FR}}" alt="Image de la carte {{.Name.FR}}"></a>
+            </div>
             {{end}}
-        </ul>
-        {{else}}
-        <p>Aucune carte trouvée pour ce deck.</p>
-        {{end}}
+        </div>
     </section>
+    {{else}}
+    <p class="text-center">Aucune carte trouvée pour ce deck.</p>
+    {{end}}
 </body>
 
 </html>
 {{end}}
-

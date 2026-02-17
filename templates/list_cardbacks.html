@@ -5,12 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Dos de Cartes d'Hearthstone</title>
+    <title>Catalogue des Dos de Cartes d'Hearthstone</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
-    <h1>Liste des Dos de Cartes d'Hearthstone</h1>
+    <header class="site-header">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item nav-logo"><a href="/"><img src="/static/img/Hearthstone-Logo.png" alt="Accueil"></a>
+                </li>
+                <li class="nav-item"><a href="/cards">Cartes</a></li>
+                <li class="nav-item"><a href="/cardbacks">Dos de Cartes</a></li>
+                <li class="nav-item"><a href="/deck/code">Deck Builder</a></li>
+                <li class="nav-item"><a href="/favorites">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Catalogue des Dos de Cartes d'Hearthstone</h1>
     <div class="cards-container">
         {{range .CardBacks}}
         <div class="card">
@@ -19,17 +31,16 @@
         </div>
         {{end}}
     </div>
-    <div>
-        <p>Page {{.CurrentPage}} / {{.TotalPages}}</p>
+    <div class="pagination">
         {{if .HasPrev}}
-        <a href="/cardbacks?page={{.PrevPage}}">Page précédente</a>
+        <a href="/cardbacks?page={{.PrevPage}}">← Précédente</a>
         {{end}}
+        <p>Page {{.CurrentPage}} / {{.TotalPages}}</p>
         {{if .HasNext}}
-        <a href="/cardbacks?page={{.NextPage}}">Page suivante</a>
+        <a href="/cardbacks?page={{.NextPage}}">Suivante →</a>
         {{end}}
     </div>
 </body>
 
 </html>
 {{end}}
-

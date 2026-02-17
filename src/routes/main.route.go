@@ -7,13 +7,10 @@ import (
 // MainRouter initialise et retourne le routeur principal de l'application
 func MainRouter() *http.ServeMux {
 
-	// Création du routeur principal
 	mainRouter := http.NewServeMux()
 
-	// Enregistrement des routes liées à la gestion des erreurs
 	errorRouter(mainRouter)
 
-	// Enregistrement des routes liées aux Cartes
 	routerListCards(mainRouter)
 
 	// Configuration du serveur de fichiers statiques (CSS, images, etc.)

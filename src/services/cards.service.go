@@ -27,22 +27,18 @@ type LocalizedString struct {
 	TW string `json:"zh_TW"`
 }
 
-// FlexibleLocalizedString peut désérialiser soit une string soit un objet LocalizedString
-// Utilise un champ anonyme (embedded) pour permettre l'accès direct aux champs (ex: .FR)
+
 type FlexibleLocalizedString struct {
 	LocalizedString
 }
 
 // UnmarshalJSON permet de gérer les deux formats : string ou objet
 func (f *FlexibleLocalizedString) UnmarshalJSON(data []byte) error {
-	// Essayer d'abord comme une string
 	var str string
 	if err := json.Unmarshal(data, &str); err == nil {
-		// Si c'est une string, on la met dans le champ FR
 		f.FR = str
 		return nil
 	}
-	// Sinon, essayer comme un objet LocalizedString
 	return json.Unmarshal(data, &f.LocalizedString)
 }
 
@@ -74,6 +70,7 @@ func (c Card) RarityName() string {
 	}
 }
 
+// AllCard représente la réponse paginée de l'API pour les cartes.
 type AllCards struct {
 	CardCount int    `json:"cardCount"`
 	PageCount int    `json:"pageCount"`
@@ -137,7 +134,6 @@ func GetCardsPage(page int, pageSize int, textFilter string) (*AllCards, int, er
 	defer res.Body.Close()
 
 	if res.StatusCode != http.StatusOK {
-		// Lire le corps de la réponse pour obtenir plus de détails sur l'erreur
 		errorBody, _ := io.ReadAll(res.Body)
 		return nil, res.StatusCode, fmt.Errorf("GetCardsPage - Erreur dans la réponse code : %d, message : %s, body : %s", res.StatusCode, res.Status, string(errorBody))
 	}
@@ -154,14 +150,14 @@ func GetCardsPage(page int, pageSize int, textFilter string) (*AllCards, int, er
 
 // CardFilters contient les paramètres de filtre pour la recherche de cartes.
 type CardFilters struct {
-	ManaCost   string // valeur ou vide
+	ManaCost   string 
 	Attack     string
 	Health     string
-	Rarity     string // slug API : free, common, rare, epic, legendary ou vide
+	Rarity     string // free, common, rare, epic, legendary ou vide
 	TextFilter string // filtre texte (nom / texte de carte)
 }
 
-// GetCardsPageWithFilters récupère une page de cartes avec filtres ManaCost, Attack, Health, Rarity et texte.
+// GetCardsPageWithFilters récupère une page de cartes avec filtres les ManaCost, Attack, Health, Rarity et le nom/texte.
 func GetCardsPageWithFilters(page int, pageSize int, filters CardFilters) (*AllCards, int, error) {
 	_client := http.Client{
 		Timeout: 20 * time.Second,
@@ -293,8 +289,6 @@ func GetCardByID(id int) (*Card, int, error) {
 }
 
 // GetDeckPage récupère les informations d'un deck Hearthstone à partir de son code
-// en utilisant l'endpoint de l'API Hearthstone :
-// https://eu.api.blizzard.com/hearthstone/deck?code=<deckCode>
 func GetDeckPage(deckCode string) (*Deck, int, error) {
 	_client := http.Client{
 		Timeout: 20 * time.Second,

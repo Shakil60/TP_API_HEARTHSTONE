@@ -5,43 +5,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Cartes d'Hearthstone - Filtres</title>
+    <title>Catalogue des Cartes d'Hearthstone</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
-    <h1>Liste des Cartes d'Hearthstone (avec filtres)</h1>
+    <header class="site-header">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item nav-logo"><a href="/"><img src="/static/img/Hearthstone-Logo.png" alt="Accueil"></a>
+                </li>
+                <li class="nav-item"><a href="/cards">Cartes</a></li>
+                <li class="nav-item"><a href="/cardbacks">Dos de Cartes</a></li>
+                <li class="nav-item"><a href="/deck/code">Deck Builder</a></li>
+                <li class="nav-item"><a href="/favorites">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
+    <h1>Catalogue des Cartes d'Hearthstone</h1>
 
-    <form method="get" action="/cards">
-        <label for="textFilter">Rechercher une carte :</label>
-        <input id="textFilter" type="text" name="textFilter" placeholder="Nom ou texte de carte" value="{{.SearchTerm}}">
+    <div class="filter-container">
+        <form method="get" action="/cards" class="filter-form">
+            <div class="filter-group">
+                <label for="textFilter" class="filter-label">Recherche :</label>
+                <input id="textFilter" type="text" name="textFilter" placeholder="Nom..." value="{{.SearchTerm}}"
+                    class="filter-input">
+            </div>
 
-        <label for="manaCost">Coût en mana :</label>
-        <input id="manaCost" type="number" name="manaCost" min="0" max="10" placeholder="0-10" value="{{.ManaCost}}">
+            <div class="filter-group">
+                <label for="manaCost" class="filter-label">Mana :</label>
+                <input id="manaCost" type="number" name="manaCost" min="0" max="10" placeholder="0-10"
+                    value="{{.ManaCost}}" class="filter-input-number">
+            </div>
 
-        <label for="attack">Attaque :</label>
-        <input id="attack" type="number" name="attack" min="0" max="10" placeholder="0-10" value="{{.Attack}}">
+            <div class="filter-group">
+                <label for="attack" class="filter-label">Attaque :</label>
+                <input id="attack" type="number" name="attack" min="0" max="10" placeholder="0-10" value="{{.Attack}}"
+                    class="filter-input-number">
+            </div>
 
-        <label for="health">Santé :</label>
-        <input id="health" type="number" name="health" min="0" max="10" placeholder="0-10" value="{{.Health}}">
+            <div class="filter-group">
+                <label for="health" class="filter-label">Santé :</label>
+                <input id="health" type="number" name="health" min="0" max="10" placeholder="0-10" value="{{.Health}}"
+                    class="filter-input-number">
+            </div>
 
-        <label for="rarity">Rareté :</label>
-        <select id="rarity" name="rarity">
-            <option value="">Toutes</option>
-            <option value="free" {{if eq .Rarity "free"}}selected{{end}}>Gratuite</option>
-            <option value="common" {{if eq .Rarity "common"}}selected{{end}}>Commune</option>
-            <option value="rare" {{if eq .Rarity "rare"}}selected{{end}}>Rare</option>
-            <option value="epic" {{if eq .Rarity "epic"}}selected{{end}}>Épique</option>
-            <option value="legendary" {{if eq .Rarity "legendary"}}selected{{end}}>Légendaire</option>
-        </select>
+            <div class="filter-group">
+                <label for="rarity" class="filter-label">Rareté :</label>
+                <select id="rarity" name="rarity" class="filter-select">
+                    <option value="">Toutes</option>
+                    <option value="free" {{if eq .Rarity "free" }}selected{{end}}>Gratuite</option>
+                    <option value="common" {{if eq .Rarity "common" }}selected{{end}}>Commune</option>
+                    <option value="rare" {{if eq .Rarity "rare" }}selected{{end}}>Rare</option>
+                    <option value="epic" {{if eq .Rarity "epic" }}selected{{end}}>Épique</option>
+                    <option value="legendary" {{if eq .Rarity "legendary" }}selected{{end}}>Légendaire</option>
+                </select>
+            </div>
 
-        <button type="submit">Filtrer</button>
-    </form>
+            <button type="submit" class="btn-filter">Filtrer</button>
+        </form>
+    </div>
 
     <div class="cards-container">
         {{range .Cards}}
         <div class="card">
-            <h3><a href="/card?id={{.ID}}">{{.Name.FR}}</a></h3>
             <a href="/card?id={{.ID}}"><img src="{{.Image.FR}}" alt="Image de la carte {{.Name.FR}}"></a>
             <form method="post" action="/favorites/add" style="display:inline;">
                 <input type="hidden" name="id" value="{{.ID}}">
@@ -56,13 +83,13 @@
         </div>
         {{end}}
     </div>
-    <div>
-        <p>Page {{.CurrentPage}} / {{.TotalPages}}</p>
+    <div class="pagination">
         {{if .HasPrev}}
-        <a href="{{.PrevURL}}">Page précédente</a>
+        <a href="{{.PrevURL}}">← Précédente</a>
         {{end}}
+        <p>Page {{.CurrentPage}} / {{.TotalPages}}</p>
         {{if .HasNext}}
-        <a href="{{.NextURL}}">Page suivante</a>
+        <a href="{{.NextURL}}">Suivante →</a>
         {{end}}
     </div>
 </body>

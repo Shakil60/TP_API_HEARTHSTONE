@@ -1,31 +1,45 @@
 {{define "favorites"}}
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes cartes favorites - Hearthstone</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
+    <header class="site-header">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item nav-logo"><a href="/"><img src="/static/img/Hearthstone-Logo.png" alt="Accueil"></a>
+                </li>
+                <li class="nav-item"><a href="/cards">Cartes</a></li>
+                <li class="nav-item"><a href="/cardbacks">Dos de Cartes</a></li>
+                <li class="nav-item"><a href="/deck/code">Deck Builder</a></li>
+                <li class="nav-item"><a href="/favorites">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
     <h1>Mes cartes favorites</h1>
-    <p><a href="/">Retour à l'accueil</a> | <a href="/cards">Liste des cartes</a></p>
     {{if .}}
-    <ul>
+    <div class="cards-container">
         {{range .}}
-        <li>
-            <h3><a href="/card?id={{.ID}}">{{.Name}}</a></h3>
+        <div class="card">
             <a href="/card?id={{.ID}}"><img src="{{.Image}}" alt="Image de la carte {{.Name}}"></a>
-            <form action="/favorites/remove" method="post" style="margin-top: 8px;">
+            <form action="/favorites/remove" method="post" class="card-remove-form">
                 <input type="hidden" name="id" value="{{.ID}}">
-                <button type="submit">Retirer des favoris</button>
+                <button type="submit">Retirer</button>
             </form>
-        </li>
+        </div>
         {{end}}
-    </ul>
+    </div>
     {{else}}
-    <p>Aucune carte en favori. Ajoutez des cartes depuis la liste des cartes.</p>
+    <p class="text-center mt-20">Aucune carte en favori. Ajoutez des cartes depuis la liste des
+        cartes.</p>
     {{end}}
 </body>
+
 </html>
 {{end}}

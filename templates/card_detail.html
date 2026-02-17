@@ -7,28 +7,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail carte - {{.Card.Name.FR}}</title>
     <link rel="stylesheet" href="/static/css/style.css">
- </head>
+</head>
 
 <body>
-    <a href="/cards">← Retour à la liste</a>
-    <h1>{{.Card.Name.FR}}</h1>
-    <p><strong>ID :</strong> {{.Card.ID}}</p>
-    <p><strong>Coût en mana :</strong> {{.Card.ManaCost}}</p>
-    <p><strong>Attaque :</strong> {{.Card.Attack}}</p>
-    <p><strong>Santé :</strong> {{.Card.Health}}</p>
-    <p><strong>Rareté :</strong> {{.Card.RarityName}}</p>
-    <img src="{{.Card.Image.FR}}" alt="Image de la carte {{.Card.Name.FR}}">
+    <header class="site-header">
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item nav-logo"><a href="/"><img src="/static/img/Hearthstone-Logo.png" alt="Accueil"></a>
+                </li>
+                <li class="nav-item"><a href="/cards">Cartes</a></li>
+                <li class="nav-item"><a href="/cardbacks">Dos de Cartes</a></li>
+                <li class="nav-item"><a href="/deck/code">Deck Builder</a></li>
+                <li class="nav-item"><a href="/favorites">Favoris</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="detail-container">
+        <h1 class="detail-title">{{.Card.Name.FR}}</h1>
 
-    <form method="post" action="/favorites/add">
-        <input type="hidden" name="id" value="{{.Card.ID}}">
-        <input type="hidden" name="manaCost" value="{{.Card.ManaCost}}">
-        <input type="hidden" name="attack" value="{{.Card.Attack}}">
-        <input type="hidden" name="health" value="{{.Card.Health}}">
-        <input type="hidden" name="rarity" value="{{.Card.Rarity}}">
-        <input type="hidden" name="name" value="{{.Card.Name.FR}}">
-        <input type="hidden" name="image" value="{{.Card.Image.FR}}">
-        <button type="submit">Ajouter aux favoris</button>
-    </form>
+        <div class="detail-content">
+            <img src="{{.Card.Image.FR}}" alt="Image de la carte {{.Card.Name.FR}}" class="detail-image">
+
+            <div class="stats-box">
+                <p class="stats-item"><strong>ID :</strong> {{.Card.ID}}</p>
+                <p class="stats-item"><strong>Coût en mana :</strong> {{.Card.ManaCost}}</p>
+                <p class="stats-item"><strong>Attaque :</strong> {{.Card.Attack}}</p>
+                <p class="stats-item"><strong>Santé :</strong> {{.Card.Health}}</p>
+                <p class="stats-item"><strong>Rareté :</strong> {{.Card.RarityName}}</p>
+            </div>
+
+            <form method="post" action="/favorites/add" class="detail-form">
+                <input type="hidden" name="id" value="{{.Card.ID}}">
+                <input type="hidden" name="manaCost" value="{{.Card.ManaCost}}">
+                <input type="hidden" name="attack" value="{{.Card.Attack}}">
+                <input type="hidden" name="health" value="{{.Card.Health}}">
+                <input type="hidden" name="rarity" value="{{.Card.Rarity}}">
+                <input type="hidden" name="name" value="{{.Card.Name.FR}}">
+                <input type="hidden" name="image" value="{{.Card.Image.FR}}">
+                <button type="submit" class="btn-large-fav">Ajouter
+                    aux favoris</button>
+            </form>
+        </div>
+    </div>
 
 </body>
 
