@@ -110,3 +110,35 @@ func ListCardsDisplay(w http.ResponseWriter, r *http.Request) {
 
 	helper.RenderTemplate(w, r, "list_cards_filter", pageData)
 }
+
+// CardDetailPageData contient les données pour la page détail d'une carte.
+type CardDetailPageData struct {
+	Card services.Card
+}
+
+// CardDetailDisplay affiche la page détail d'une carte identifiée par le paramètre "id".
+func CardDetailDisplay(w http.ResponseWriter, r *http.Request) {
+	idParam := r.URL.Query().Get("id")
+	if idParam == "" {
+		http.Error(w, "Paramètre id manquant", http.StatusBadRequest)
+		return
+	}
+
+	id, err := strconv.Atoi(idParam)
+	if err != nil || id <= 0 {
+		http.Error(w, "Paramètre id invalide", http.StatusBadRequest)
+		return
+	}
+
+	card, statusCode, svcErr := services.GetCardByID(id)
+	if svcErr != nil || statusCode != http.StatusOK {
+		if statusCode == 0 {
+			statusCode = http.StatusInternalServerError
+		}
+		http.Error(w, fmt.Sprintf("Erreur lors de la récupération de la carte: %v", svcErr), statusCode)
+		return
+	}
+
+	pageData := CardDetailPageData{Card: *card}
+	helper.RenderTemplate(w, r, "card_detail", pageData)
+}

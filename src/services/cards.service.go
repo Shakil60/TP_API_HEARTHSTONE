@@ -255,6 +255,43 @@ func GetCardBacksPage(page int, pageSize int) (*AllCardBacks, int, error) {
 	return &data, http.StatusOK, nil
 }
 
+// GetCardByID récupère les détails d'une carte par son ID.
+func GetCardByID(id int) (*Card, int, error) {
+	_client := http.Client{
+		Timeout: 20 * time.Second,
+	}
+
+	baseURL := "https://eu.api.blizzard.com/hearthstone/cards"
+
+	fullURL := fmt.Sprintf("%s/%d?locale=fr_FR", baseURL, id)
+
+	req, reqErr := http.NewRequest(http.MethodGet, fullURL, nil)
+	if reqErr != nil {
+		return nil, http.StatusInternalServerError, fmt.Errorf("GetCardByID - Erreur lors de la préparation de la requête : %s", reqErr)
+	}
+
+	req.Header.Set("Authorization", "Bearer "+Token)
+
+	res, resErr := _client.Do(req)
+	if resErr != nil {
+		return nil, http.StatusInternalServerError, fmt.Errorf("GetCardByID - Erreur lors de l'envoi de la requête : %s", resErr)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusOK {
+		errorBody, _ := io.ReadAll(res.Body)
+		return nil, res.StatusCode, fmt.Errorf("GetCardByID - Erreur code : %d, body : %s", res.StatusCode, string(errorBody))
+	}
+
+	var card Card
+	decodeErr := json.NewDecoder(res.Body).Decode(&card)
+	if decodeErr != nil {
+		return nil, http.StatusInternalServerError, fmt.Errorf("GetCardByID - Erreur décodage : %s", decodeErr.Error())
+	}
+
+	return &card, http.StatusOK, nil
+}
+
 // GetDeckPage récupère les informations d'un deck Hearthstone à partir de son code
 // en utilisant l'endpoint de l'API Hearthstone :
 // https://eu.api.blizzard.com/hearthstone/deck?code=<deckCode>

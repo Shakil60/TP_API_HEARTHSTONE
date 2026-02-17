@@ -11,15 +11,14 @@
 
 <body>
     <h1>Liste des Dos de Cartes d'Hearthstone</h1>
-    <ul>
+    <div class="cards-container">
         {{range .CardBacks}}
-        <li>
+        <div class="card">
             <h3>{{.Name.FR}}</h3>
-            <p><strong>ID :</strong> {{.ID}}</p>
             <img src="{{.Image}}" alt="Image du dos de carte {{.Name.FR}}">
-        </li>
+        </div>
         {{end}}
-    </ul>
+    </div>
     <div>
         <p>Page {{.CurrentPage}} / {{.TotalPages}}</p>
         {{if .HasPrev}}

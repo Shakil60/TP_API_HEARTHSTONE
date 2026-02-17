@@ -14,13 +14,8 @@
     <ul>
         {{range .}}
         <li>
-            <h3>{{.Name}}</h3>
-            <p><strong>ID :</strong> {{.ID}}</p>
-            <p><strong>Coût en mana :</strong> {{.ManaCost}}</p>
-            <p><strong>Attaque :</strong> {{.Attack}}</p>
-            <p><strong>Santé :</strong> {{.Health}}</p>
-            <p><strong>Rareté :</strong> {{.RarityName}}</p>
-            <img src="{{.Image}}" alt="{{.Name}}">
+            <h3><a href="/card?id={{.ID}}">{{.Name}}</a></h3>
+            <a href="/card?id={{.ID}}"><img src="{{.Image}}" alt="Image de la carte {{.Name}}"></a>
             <form action="/favorites/remove" method="post" style="margin-top: 8px;">
                 <input type="hidden" name="id" value="{{.ID}}">
                 <button type="submit">Retirer des favoris</button>

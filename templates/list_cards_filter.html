@@ -38,16 +38,11 @@
         <button type="submit">Filtrer</button>
     </form>
 
-    <ul>
+    <div class="cards-container">
         {{range .Cards}}
-        <li>
-            <h3>{{.Name.FR}}</h3>
-            <p><strong>ID :</strong> {{.ID}}</p>
-            <p><strong>Coût en mana :</strong> {{.ManaCost}}</p>
-            <p><strong>Attaque :</strong> {{.Attack}}</p>
-            <p><strong>Santé :</strong> {{.Health}}</p>
-            <p><strong>Rareté :</strong> {{.RarityName}}</p>
-            <img src="{{.Image.FR}}" alt="Image de la carte {{.Name.FR}}">
+        <div class="card">
+            <h3><a href="/card?id={{.ID}}">{{.Name.FR}}</a></h3>
+            <a href="/card?id={{.ID}}"><img src="{{.Image.FR}}" alt="Image de la carte {{.Name.FR}}"></a>
             <form method="post" action="/favorites/add" style="display:inline;">
                 <input type="hidden" name="id" value="{{.ID}}">
                 <input type="hidden" name="manaCost" value="{{.ManaCost}}">
@@ -58,9 +53,9 @@
                 <input type="hidden" name="image" value="{{.Image.FR}}">
                 <button type="submit">Ajouter aux favoris</button>
             </form>
-        </li>
+        </div>
         {{end}}
-    </ul>
+    </div>
     <div>
         <p>Page {{.CurrentPage}} / {{.TotalPages}}</p>
         {{if .HasPrev}}

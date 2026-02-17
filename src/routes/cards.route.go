@@ -13,6 +13,9 @@ func routerListCards(router *http.ServeMux) {
 
 	// Route pour la page de liste des cartes (avec filtres)
 	router.HandleFunc("/cards", controllers.ListCardsDisplay)
+	
+	// Route pour la page détail d'une carte
+	router.HandleFunc("/card", controllers.CardDetailDisplay)
 
 	router.HandleFunc("/cardbacks", controllers.ListCardsbacksDisplay)
 
