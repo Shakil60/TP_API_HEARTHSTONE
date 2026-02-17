@@ -1,0 +1,36 @@
+{{define "favorites"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes cartes favorites - Hearthstone</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h1>Mes cartes favorites</h1>
+    <p><a href="/">Retour à l'accueil</a> | <a href="/cards">Liste des cartes</a></p>
+    {{if .}}
+    <ul>
+        {{range .}}
+        <li>
+            <h3>{{.Name}}</h3>
+            <p><strong>ID :</strong> {{.ID}}</p>
+            <p><strong>Coût en mana :</strong> {{.ManaCost}}</p>
+            <p><strong>Attaque :</strong> {{.Attack}}</p>
+            <p><strong>Santé :</strong> {{.Health}}</p>
+            <p><strong>Rareté :</strong> {{.RarityName}}</p>
+            <img src="{{.Image}}" alt="{{.Name}}">
+            <form action="/favorites/remove" method="post" style="margin-top: 8px;">
+                <input type="hidden" name="id" value="{{.ID}}">
+                <button type="submit">Retirer des favoris</button>
+            </form>
+        </li>
+        {{end}}
+    </ul>
+    {{else}}
+    <p>Aucune carte en favori. Ajoutez des cartes depuis la liste des cartes.</p>
+    {{end}}
+</body>
+</html>
+{{end}}

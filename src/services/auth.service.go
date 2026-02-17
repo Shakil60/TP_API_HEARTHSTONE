@@ -11,11 +11,9 @@ import (
 )
 
 const (
-	// BattleNetTokenURL est l'endpoint OAuth pour obtenir un token d'accès.
 	BattleNetTokenURL = "https://oauth.battle.net/token"
 )
 
-// Token est le token d'accès pour l'API Blizzard, initialisé au démarrage via GetBattleNetToken (dans main).
 var Token string
 
 // BattleNetTokenResponse représente la réponse JSON de l'endpoint token Battle.net.
@@ -26,9 +24,7 @@ type BattleNetTokenResponse struct {
 	Scope       string `json:"scope,omitempty"`
 }
 
-// GetBattleNetToken demande un token OAuth à Battle.net (client credentials).
-// clientID et clientSecret sont les identifiants de l'application Blizzard.
-// En production, préférer les variables d'environnement (ex: BLIZZARD_CLIENT_ID, BLIZZARD_CLIENT_SECRET).
+// GetBattleNetToken demande un token OAuth à Battle.net.
 func GetBattleNetToken(clientID, clientSecret string) (accessToken string, expiresIn int, err error) {
 	client := &http.Client{Timeout: 15 * time.Second}
 

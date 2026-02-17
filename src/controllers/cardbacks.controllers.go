@@ -18,7 +18,6 @@ type CardBacksPageData struct {
 }
 
 // ListCardsbacksDisplay est un contrôleur permettant de récupérer la liste des dos de cartes.
-// Pour l'instant, on renvoie simplement la réponse JSON de l'API.
 func ListCardsbacksDisplay(w http.ResponseWriter, r *http.Request) {
 	const pageSize = 20
 	pageParam := r.URL.Query().Get("page")
@@ -31,7 +30,6 @@ func ListCardsbacksDisplay(w http.ResponseWriter, r *http.Request) {
 
 	data, statusCode, err := services.GetCardBacksPage(page, pageSize)
 	if err != nil || statusCode != http.StatusOK {
-		// S'assurer d'utiliser un code de statut valide
 		if statusCode == 0 {
 			statusCode = http.StatusInternalServerError
 		}
@@ -39,7 +37,7 @@ func ListCardsbacksDisplay(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Si aucune donnée n'est renvoyée, on affiche une page vide cohérente
+	// Si aucune donnée n'est renvoyée, on affiche une page vide.
 	if data == nil || len(data.CardBacks) == 0 {
 		helper.RenderTemplate(w, r, "list_cardbacks", CardBacksPageData{
 			CardBacks:   []services.CardBack{},
@@ -63,6 +61,5 @@ func ListCardsbacksDisplay(w http.ResponseWriter, r *http.Request) {
 		NextPage:    data.Page + 1,
 	}
 
-	// Chargement du template HTML (grâce au helper)
 	helper.RenderTemplate(w, r, "list_cardbacks", pageData)
 }

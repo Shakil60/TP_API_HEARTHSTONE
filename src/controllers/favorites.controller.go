@@ -59,3 +59,25 @@ func AddFavoriteHandler(w http.ResponseWriter, r *http.Request) {
 	_ = services.AddFavorite(card)
 	http.Redirect(w, r, "/favorites", http.StatusSeeOther)
 }
+
+// RemoveFavoriteHandler retire une carte des favoris (POST avec formulaire).
+func RemoveFavoriteHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Redirect(w, r, "/favorites", http.StatusSeeOther)
+		return
+	}
+
+	if err := r.ParseForm(); err != nil {
+		http.Error(w, "Formulaire invalide", http.StatusBadRequest)
+		return
+	}
+
+	id, _ := strconv.Atoi(strings.TrimSpace(r.PostFormValue("id")))
+	if id == 0 {
+		http.Redirect(w, r, "/favorites", http.StatusSeeOther)
+		return
+	}
+
+	_ = services.RemoveFavorite(id)
+	http.Redirect(w, r, "/favorites", http.StatusSeeOther)
+}

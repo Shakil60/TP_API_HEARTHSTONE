@@ -5,11 +5,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Cartes d'Hearthstone</title>
+    <title>Liste des Cartes d'Hearthstone - Filtres</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
-    <h1>Liste des Cartes d'Hearthstone </h1>
+    <h1>Liste des Cartes d'Hearthstone (avec filtres)</h1>
+
+    <form method="get" action="/cards">
+        <label for="textFilter">Rechercher une carte :</label>
+        <input id="textFilter" type="text" name="textFilter" placeholder="Nom ou texte de carte" value="{{.SearchTerm}}">
+
+        <label for="manaCost">Coût en mana :</label>
+        <input id="manaCost" type="number" name="manaCost" min="0" max="10" placeholder="0-10" value="{{.ManaCost}}">
+
+        <label for="attack">Attaque :</label>
+        <input id="attack" type="number" name="attack" min="0" max="10" placeholder="0-10" value="{{.Attack}}">
+
+        <label for="health">Santé :</label>
+        <input id="health" type="number" name="health" min="0" max="10" placeholder="0-10" value="{{.Health}}">
+
+        <label for="rarity">Rareté :</label>
+        <select id="rarity" name="rarity">
+            <option value="">Toutes</option>
+            <option value="free" {{if eq .Rarity "free"}}selected{{end}}>Gratuite</option>
+            <option value="common" {{if eq .Rarity "common"}}selected{{end}}>Commune</option>
+            <option value="rare" {{if eq .Rarity "rare"}}selected{{end}}>Rare</option>
+            <option value="epic" {{if eq .Rarity "epic"}}selected{{end}}>Épique</option>
+            <option value="legendary" {{if eq .Rarity "legendary"}}selected{{end}}>Légendaire</option>
+        </select>
+
+        <button type="submit">Filtrer</button>
+    </form>
+
     <ul>
         {{range .Cards}}
         <li>
@@ -20,6 +48,16 @@
             <p><strong>Santé :</strong> {{.Health}}</p>
             <p><strong>Rareté :</strong> {{.RarityName}}</p>
             <img src="{{.Image.FR}}" alt="Image de la carte {{.Name.FR}}">
+            <form method="post" action="/favorites/add" style="display:inline;">
+                <input type="hidden" name="id" value="{{.ID}}">
+                <input type="hidden" name="manaCost" value="{{.ManaCost}}">
+                <input type="hidden" name="attack" value="{{.Attack}}">
+                <input type="hidden" name="health" value="{{.Health}}">
+                <input type="hidden" name="rarity" value="{{.Rarity}}">
+                <input type="hidden" name="name" value="{{.Name.FR}}">
+                <input type="hidden" name="image" value="{{.Image.FR}}">
+                <button type="submit">Ajouter aux favoris</button>
+            </form>
         </li>
         {{end}}
     </ul>

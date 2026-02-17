@@ -22,7 +22,7 @@ type FavoriteCard struct {
 	Image    string `json:"image"`
 }
 
-// RarityName retourne le nom français de la rareté pour FavoriteCard.
+// RarityName retourne le nom français de la rareté.
 func (f FavoriteCard) RarityName() string {
 	switch f.Rarity {
 	case 1:
@@ -90,4 +90,26 @@ func AddFavorite(card FavoriteCard) error {
 	}
 	list = append(list, card)
 	return SaveFavorites(list)
+}
+
+// RemoveFavorite supprime une carte des favoris par son ID.
+func RemoveFavorite(id int) error {
+	list, err := LoadFavorites()
+	if err != nil {
+		return err
+	}
+
+	if len(list) == 0 {
+		return nil
+	}
+
+	newList := make([]FavoriteCard, 0, len(list))
+	for _, c := range list {
+		if c.ID != id {
+			newList = append(newList, c)
+		}
+	}
+
+	// Même si rien ne change, on ré-enregistre pour être explicite.
+	return SaveFavorites(newList)
 }

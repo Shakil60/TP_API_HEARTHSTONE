@@ -1,32 +1,5 @@
 [
   {
-    "id": 108499,
-    "manaCost": 5,
-    "attack": 0,
-    "health": 5,
-    "rarity": 5,
-    "name": "A. F. Kah",
-    "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/e832c54d82bd0685c8c48c439e597fd8eafea603a1169f7e863bd76cf32a62d3.png"
-  },
-  {
-    "id": 67757,
-    "manaCost": 5,
-    "attack": 2,
-    "health": 8,
-    "rarity": 1,
-    "name": "Abomination livide",
-    "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/ac7a7409c928e0ff7f8ea08c07eaebedabb9733f61870f135afd6217f1655342.png"
-  },
-  {
-    "id": 57194,
-    "manaCost": 8,
-    "attack": 12,
-    "health": 12,
-    "rarity": 1,
-    "name": "Abyssal suprême",
-    "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/bf8c22346a5de7cbf4580598342ad6f34fef1600d8c9e1ab08f421c581bf57d4.png"
-  },
-  {
     "id": 79745,
     "manaCost": 1,
     "attack": 0,
@@ -43,5 +16,14 @@
     "rarity": 4,
     "name": "AVIS DE RECHERCHE",
     "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/75df039db6ca2d80a5eeeb147e92ce7aa397aeeac7588eff112699c749e68fcf.png"
+  },
+  {
+    "id": 233,
+    "manaCost": 1,
+    "attack": 0,
+    "health": 0,
+    "rarity": 1,
+    "name": "Acclimatation",
+    "image": "https://d15f34w2p8l1cc.cloudfront.net/hearthstone/fa6bde7dae84eb975fcaa29b7002c7a3a82fb4eccde69ece0cdbe415183c6b13.png"
   }
 ]

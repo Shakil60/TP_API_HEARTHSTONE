@@ -17,10 +17,11 @@ func MainRouter() *http.ServeMux {
 	routerListCards(mainRouter)
 
 	// Configuration du serveur de fichiers statiques (CSS, images, etc.)
-	fileServerHandler := http.FileServer(http.Dir("assets"))
+	// On sert les assets du projet courant : ../assets (par rapport à src)
+	fileServerHandler := http.FileServer(http.Dir("../assets"))
 
 	// Route permettant de servir les fichiers statiques via /static/
-	mainRouter.Handle("/static/",http.StripPrefix("/static/", fileServerHandler))
+	mainRouter.Handle("/static/", http.StripPrefix("/static/", fileServerHandler))
 
 	return mainRouter
 }
